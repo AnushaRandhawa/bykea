@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title-main">Parcel Details</title>
+    <title>Bykea - Parcel Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* --- Shared Variables & Global Reset --- */
         :root {
-            --color-text: #212121;
-            --color-bg: #FAFAFA;
-            --color-delivery: #00796B; /* Teal Accent (Used for Delivery) */
-            --color-success: #388E3C;
+            /* Bykea Brand Colors */
+            --color-text: #313131; /* Dark grey (Mine Shaft) */
+            --color-bg: #ffffff; /* White background */
+            --color-delivery: #02aa31; /* Bykea Green (Green Haze) */
+            --color-success: #02aa31; /* Bykea green for success states */
             --color-border: #757575;
-            --color-price: #D81B60; 
-            --color-highlight: #E0F2F1; /* Light Teal highlight */
+            --color-price: #02aa31; /* Bykea green for prices */
+            --color-highlight: #E8F5E9; /* Light green highlight */
             
             /* High Contrast Colors */
             --hc-bg: #000000;
@@ -23,22 +27,32 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--color-bg);
             color: var(--color-text);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
+            border: 4px solid #000000;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         .app-container {
             width: 100%;
-            max-width: 600px;
-            padding: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
             min-height: 100vh;
             box-sizing: border-box;
             position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Ensure all child elements respect container width */
+        .app-container * {
+            box-sizing: border-box;
         }
 
         /* RTL/LTR Handling */
@@ -57,15 +71,15 @@
         /* ========================================= */
         .mode-accessible { 
             font-size: 1.25rem; 
-            background-color: var(--hc-bg) !important;
-            color: var(--hc-text) !important;
+            background-color: #ffffff !important; /* White background */
+            color: var(--color-text) !important;
         }
         .mode-accessible body {
-            background-color: var(--hc-bg) !important;
-            color: var(--hc-text) !important;
+            background-color: #ffffff !important; /* White background */
+            color: var(--color-text) !important;
         }
         .mode-accessible h1, .mode-accessible h2, .mode-accessible h3, .mode-accessible h4 { 
-            color: var(--hc-text) !important;
+            color: var(--color-text) !important;
         }
 
         /* Scale Inputs/Labels/Paddings */
@@ -79,8 +93,8 @@
             border: 3px solid var(--hc-border);
         }
         .mode-accessible .location-details-box, .mode-accessible .review-section-box, .mode-accessible .rider-details-box, .mode-accessible .cat-card {
-            background-color: var(--hc-card-bg);
-            border: 3px solid var(--hc-border);
+            background-color: #ffffff;
+            border: 3px solid var(--color-text);
         }
         .mode-accessible .review-item-line .detail, .mode-accessible .status-detail { color: var(--hc-border); } 
         
@@ -93,43 +107,183 @@
         .mode-accessible .review-location h4 { font-size: 1.7rem; } 
         .mode-accessible .review-location p { font-size: 1.4rem; } 
         .mode-accessible .review-item-line .label { font-size: 1.4rem; } 
-        .mode-accessible .rider-row span { color: var(--hc-text); } 
+        .mode-accessible .rider-row span { color: var(--color-text); } 
 
         .mode-accessible .tracking-status {
-            background-color: #0A3330; 
+            background-color: #015a1f; /* Dark Bykea green */
             border-left: 5px solid var(--color-success);
         }
         .mode-accessible .map-placeholder {
-            background-color: #333333;
-            color: var(--hc-text);
+            background-color: #f0f0f0;
+            color: var(--color-text);
         }
         .mode-accessible .rider-action-buttons button {
-            background: var(--hc-card-bg);
-            border: 3px solid var(--hc-border);
-            color: var(--hc-text);
+            background: #ffffff;
+            border: 3px solid var(--color-text);
+            color: var(--color-text);
         }
         /* ========================================= */
 
         /* --- Header & Navigation (Consistent) --- */
         .app-header {
-            padding: 1rem 0;
+            padding: 0;
+            margin: 0;
             text-align: center;
             position: relative;
             border-bottom: 1px solid #eee;
             margin-bottom: 1rem;
         }
+        
+        /* Add spacing after logo */
+        .app-title,
+        .step-progress {
+            margin-top: 1.5rem;
+        }
+        
+        /* Add horizontal padding to content */
+        main#main-content,
+        .app-title,
+        .step-progress {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
         .mode-accessible .app-header {
             border-bottom: 3px solid var(--hc-border);
         }
-        .app-title { font-weight: 800; margin: 0; }
-        .step-progress { margin: -0.5rem 0 1rem; color: #666; font-size: 0.9rem; }
-        .mode-accessible .step-progress { color: var(--hc-border); }
+        .app-logo {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            object-fit: contain;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        .mode-accessible .app-logo {
+            height: auto;
+        }
+        .app-title { font-weight: 800; margin: 0; font-size: 1.25rem; }
+        /* Progress Stepper */
+        .progress-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            margin: 1rem 0;
+            position: relative;
+            --progress-percent: 0;
+        }
+        
+        .progress-stepper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #d0d0d0;
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+        
+        .step-indicator {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 20%;
+        }
+        
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #d0d0d0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-indicator.completed .step-circle {
+            background: var(--color-delivery);
+            border-color: var(--color-delivery);
+            color: white;
+        }
+        
+        .step-indicator.active .step-circle {
+            background: var(--color-delivery);
+            border-color: var(--color-delivery);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(2, 170, 49, 0.2);
+        }
+        
+        .step-label {
+            margin-top: 0.5rem;
+            font-size: 0.65rem;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        
+        .step-indicator.completed .step-label,
+        .step-indicator.active .step-label {
+            color: var(--color-delivery);
+            font-weight: 600;
+        }
+        
+        /* Completed line between steps */
+        .progress-stepper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            height: 2px;
+            background: var(--color-delivery);
+            z-index: 1;
+            transform: translateY(-50%);
+            transition: width 0.3s ease;
+            width: calc((var(--progress-percent, 0) / 100) * 80%);
+        }
+        
+        /* Accessible Mode */
+        .mode-accessible .step-circle {
+            width: 40px;
+            height: 40px;
+            font-size: 1.1rem;
+            border-width: 3px;
+        }
+        
+        .mode-accessible .step-label {
+            font-size: 1rem;
+            margin-top: 0.75rem;
+        }
+        
+        .mode-accessible .progress-stepper::before {
+            height: 3px;
+        }
+        
+        .mode-accessible .step-connector {
+            height: 3px;
+        }
+        
+        /* Hide old step-progress text */
+        .step-progress { 
+            display: none; 
+        }
 
 
         .back-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            position: relative;
             background: none;
             border: none;
             cursor: pointer;
@@ -137,12 +291,22 @@
             color: var(--color-delivery);
             display: flex;
             align-items: center;
-            padding: 0.5rem;
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
             z-index: 10;
         }
-        [dir='ltr'] .back-button { left: 0; flex-direction: row; }
-        [dir='rtl'] .back-button { right: 0; flex-direction: row-reverse; }
-        .back-icon { font-size: 1.5rem; margin: 0 0.25rem; }
+        [dir='ltr'] .back-button { 
+            flex-direction: row; 
+            margin-left: 1rem;
+            margin-right: auto;
+        }
+        [dir='rtl'] .back-button { 
+            flex-direction: row-reverse; 
+            margin-right: 1rem;
+            margin-left: auto;
+        }
+        .back-icon { font-size: 1.5rem; margin: 0; }
 
         /* --- Wizard Step Views --- */
         .step-view { display: none; animation: fadeIn 0.3s ease; }
@@ -367,17 +531,47 @@
              color: var(--hc-text);
         }
     </style>
+
+ <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "uj06d06rak");
+    </script>
+    
 </head>
 <body>
     <div class="app-container" id="app-container">
 
         <header class="app-header">
-            <button class="back-button" id="global-back-btn">
+            <img src="/logoUrdu.jpeg" alt="Bykea" class="app-logo" id="app-logo">
+            <button class="back-button" id="global-back-btn" onclick="handleBack(event)">
                 <span class="back-icon">←</span>
-                <span id="back-label">Back</span>
             </button>
             <h1 class="app-title" id="page-title">Parcel Details</h1>
-            <p class="step-progress" id="step-progress">Step 1 of 5</p>
+            <div class="progress-stepper" id="progress-stepper" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" aria-label="Booking progress">
+                <div class="step-indicator" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label" id="step-label-1">Category</span>
+                </div>
+                <div class="step-indicator" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label" id="step-label-2">Pickup</span>
+                </div>
+                <div class="step-indicator" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label" id="step-label-3">Drop-off</span>
+                </div>
+                <div class="step-indicator" data-step="4">
+                    <div class="step-circle">4</div>
+                    <span class="step-label" id="step-label-4">Review</span>
+                </div>
+                <div class="step-indicator" data-step="5">
+                    <div class="step-circle">5</div>
+                    <span class="step-label" id="step-label-5">Tracking</span>
+                </div>
+            </div>
         </header>
 
         <main id="main-content">
@@ -539,6 +733,13 @@
             title4: { ur: "آرڈر ریویو", en: "Order Review" },
             title5: { ur: "آرڈر ٹریکنگ", en: "Order Tracking" },
             
+            // Progress Stepper Labels
+            stepLabel1: { ur: "قسم", en: "Category" },
+            stepLabel2: { ur: "اٹھانے", en: "Pickup" },
+            stepLabel3: { ur: "منزل", en: "Drop-off" },
+            stepLabel4: { ur: "جائزہ", en: "Review" },
+            stepLabel5: { ur: "ٹریکنگ", en: "Tracking" },
+            
             // Labels & Buttons
             lblWhatSending: { ur: "آپ کیا بھیج رہے ہیں؟", en: "What are you sending?" },
             btnContinue: { ur: "جاری رکھیں", en: "Continue" },
@@ -590,7 +791,7 @@
         let currentStep = 1;
         let selectedCategory = localStorage.getItem('deliveryCat') || 'document';
         let currentLang = localStorage.getItem('appLang') || 'ur';
-        let currentMode = localStorage.getItem('appMode') || 'accessible';
+        let currentMode = localStorage.getItem('appMode') || 'standard'; // Default: Standard (white background)
         
         // Mock Data for Persistence
         let pickupInfo = {
@@ -609,7 +810,6 @@
             pageTitleMain: document.getElementById('page-title-main'),
             pageTitle: document.getElementById('page-title'),
             stepProgress: document.getElementById('step-progress'),
-            backLabel: document.getElementById('back-label'),
             globalBackBtn: document.getElementById('global-back-btn'),
             catGrid: document.getElementById('cat-grid'),
             modal: document.getElementById('modal'),
@@ -817,7 +1017,7 @@
                 window.location.href = target;
             } else {
                 currentStep = target;
-                switchView();
+                switchView(); // switchView already calls updateProgressStepper()
             }
         }
 
@@ -921,7 +1121,7 @@
                     performNavigation('index.html', true);
                 } else {
                     currentStep--;
-                    switchView();
+                    switchView(); // switchView already calls updateProgressStepper()
                     // Announce new view title AFTER switch is complete
                     if (currentMode === 'accessible') {
                         const titleKey = `title${currentStep}`;
@@ -940,6 +1140,13 @@
         }
 
         function switchView() {
+            // Ensure currentStep is valid before proceeding
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > 5) currentStep = 5;
+            
+            // Update progress stepper FIRST to ensure it reflects the new step immediately
+            updateProgressStepper();
+            
             // Hide all steps
             for (let i = 1; i <= 5; i++) {
                 const el = document.getElementById(`step-${i}`);
@@ -958,6 +1165,56 @@
             if (currentStep === 5) updateStep5Tracking();
 
             updateTexts();
+            
+            // Update progress stepper - call immediately and also after a brief delay to ensure DOM updates
+            updateProgressStepper();
+            setTimeout(() => {
+                updateProgressStepper();
+            }, 50);
+        }
+        
+        function updateProgressStepper() {
+            const stepper = document.getElementById('progress-stepper');
+            if (!stepper) return;
+            
+            // Ensure currentStep is valid
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > 5) currentStep = 5;
+            
+            const lang = currentLang;
+            const indicators = stepper.querySelectorAll('.step-indicator');
+            const totalSteps = 5;
+            
+            if (indicators.length === 0) return;
+            
+            // Calculate progress percentage
+            const progressPercent = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            stepper.style.setProperty('--progress-percent', progressPercent);
+            
+            // Update each indicator
+            indicators.forEach((indicator, index) => {
+                const stepNum = index + 1;
+                const label = indicator.querySelector('.step-label');
+                
+                // Update label text
+                if (label && TEXTS[`stepLabel${stepNum}`]) {
+                    label.textContent = TEXTS[`stepLabel${stepNum}`][lang];
+                }
+                
+                // Remove all state classes first
+                indicator.classList.remove('active', 'completed');
+                
+                // Add appropriate state class
+                if (stepNum < currentStep) {
+                    indicator.classList.add('completed');
+                } else if (stepNum === currentStep) {
+                    indicator.classList.add('active');
+                }
+            });
+            
+            // Update ARIA attributes
+            stepper.setAttribute('aria-valuenow', currentStep);
+            stepper.setAttribute('aria-valuetext', `Step ${currentStep} of ${totalSteps}`);
         }
         
         function showModal(title, message) {
@@ -980,10 +1237,13 @@
             els.container.className = `app-container mode-${currentMode}`;
 
             // Update Header & Progress
+            const appLogo = document.getElementById('app-logo');
+            if (appLogo) {
+                appLogo.src = lang === 'ur' ? '/logoUrdu.jpeg' : '/logo.png';
+            }
             els.pageTitle.textContent = TEXTS[titleKey][lang];
             els.pageTitleMain.textContent = `${TEXTS[titleKey][lang]} | ${TEXTS[titleKey]['en']}`;
-            els.stepProgress.textContent = `Step ${currentStep} of 5`;
-            els.backLabel.textContent = TEXTS.back[lang];
+            // Progress stepper is updated in switchView(), no need to call here
 
 
             // --- Step 1 ---
@@ -1056,7 +1316,7 @@
             currentMode = localStorage.getItem('appMode') || 'accessible';
             selectedCategory = localStorage.getItem('deliveryCat') || 'document';
             
-            // Check for tracking status flag
+            // Check for tracking status flag (before switchView)
             const deliveryStatus = localStorage.getItem('deliveryStatus');
             if (deliveryStatus === 'confirmed') {
                 currentStep = 5;
@@ -1066,8 +1326,13 @@
             // ** NEW: Global Click Listener for text reading **
             els.container.addEventListener('click', handleTextClick);
             
-            // Call switchView on load to handle initial rendering and language update
+            // Call switchView on load to handle initial rendering, language update, and progress stepper
             switchView();
+            
+            // Force update progress stepper after DOM is fully ready (double-check)
+            setTimeout(() => {
+                updateProgressStepper();
+            }, 100);
         });
     </script>
 </body>

@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آسان سروس | Asaan Service</title>
+    <title>Bykea</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* I. Global UI Principles and Defaults */
         :root {
-            --color-text: #212121;
-            --color-bg: #FAFAFA; 
-            --color-urdu-active: #3949AB; 
-            --color-accessible-active: #D81B60; 
-            --color-delivery: #00796B; 
-            --color-ride: #D81B60; 
-            --color-shopping: #FBC02D; 
+            /* Bykea Brand Colors */
+            --color-text: #313131; /* Dark grey (Mine Shaft) */
+            --color-bg: #ffffff; /* White background */ 
+            --color-primary: #02aa31; /* Bykea Green (Green Haze) */
+            --color-urdu-active: #02aa31; /* Use Bykea green for active states */
+            --color-accessible-active: #02aa31; /* Use Bykea green for accessible mode */
+            --color-delivery: #02aa31; /* Bykea green for delivery */
+            --color-ride: #02aa31; /* Bykea green for ride */
+            --color-shopping: #02aa31; /* Bykea green for shopping */ 
             
             /* High Contrast Colors */
             --hc-bg: #000000;
@@ -23,20 +28,30 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--color-bg);
             color: var(--color-text);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
+            border: 4px solid #000000;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         .app-container {
             width: 100%;
-            max-width: 600px;
-            padding: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
             min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        
+        /* Ensure all child elements respect container width */
+        .app-container * {
             box-sizing: border-box;
         }
 
@@ -52,32 +67,32 @@
         }
 
         /* ========================================= */
-        /* === ACCESSIBILITY SCALING (GLOBAL) - HIGH CONTRAST === */
+        /* === ACCESSIBILITY SCALING (GLOBAL) - LARGE TEXT === */
         /* ========================================= */
         .mode-accessible { 
             font-size: 1.25rem; 
-            background-color: var(--hc-bg) !important;
-            color: var(--hc-text) !important;
+            background-color: #ffffff !important; /* White background */
+            color: var(--color-text) !important;
         }
         .mode-accessible body {
-            background-color: var(--hc-bg) !important;
-            color: var(--hc-text) !important;
+            background-color: #ffffff !important; /* White background */
+            color: var(--color-text) !important;
         }
 
-        /* Card Colors (Dark Card on Black BG) */
+        /* Card Colors (White cards on white BG) */
         .mode-accessible .card { 
-            background: var(--hc-card-bg); 
-            color: var(--hc-text);
-            border: 3px solid var(--hc-border); 
-            box-shadow: none; 
+            background: #ffffff; 
+            color: var(--color-text);
+            border: 3px solid var(--color-text); 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
         }
         .mode-accessible .card:hover {
-             box-shadow: 0 0 0 4px var(--color-accessible-active); 
+             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+             border-color: var(--color-accessible-active); 
         }
         
         /* Titles and Subtitles */
         .mode-accessible .app-title { font-size: 3rem; } 
-        .mode-accessible .app-subtitle { font-size: 2rem; } 
         
         /* Toggles */
         .mode-accessible .toggle-btn { 
@@ -89,30 +104,39 @@
         /* Language Toggle Colors */
         .mode-accessible .toggle-lang.active {
             background-color: var(--color-urdu-active);
-            color: var(--hc-text);
+            color: #ffffff;
             border-color: var(--color-urdu-active);
         }
         .mode-accessible .toggle-lang.inactive {
-            background-color: var(--hc-bg);
+            background-color: #ffffff;
             color: var(--color-urdu-active);
-            border-color: var(--color-urdu-active);
+            border-color: #d0d0d0;
         }
 
         /* Mode Toggle Colors */
         .mode-accessible .toggle-mode.active {
             background-color: var(--color-accessible-active);
-            color: var(--hc-text);
+            color: #ffffff;
             border-color: var(--color-accessible-active);
         }
         .mode-accessible .toggle-mode.inactive {
-            background-color: var(--hc-bg);
+            background-color: #ffffff;
             color: var(--color-accessible-active);
-            border-color: var(--color-accessible-active);
+            border-color: #d0d0d0;
         }
 
         /* Card Icons/Labels */
-        .mode-accessible .card-icon { font-size: 5rem; }
-        .mode-accessible .card-label { font-size: 1.5rem; font-weight: 700; } 
+        .mode-accessible .card-icon { font-size: 4rem; }
+        .mode-accessible .card-label { 
+            font-size: 1.2rem; 
+            font-weight: 700;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            line-height: 1.3;
+            max-width: 100%;
+            padding: 0 0.25rem;
+        } 
         
         .mode-accessible .toggle-section {
              border-bottom: 3px solid var(--hc-border);
@@ -122,12 +146,90 @@
 
         /* II. Header and Accessibility Toggles */
         .app-header {
-            padding: 1rem 0 2rem;
+            padding: 0;
+            margin: 0;
             text-align: center;
         }
         
-        .app-title { font-weight: 800; margin: 0.5rem 0; }
-        .app-subtitle { font-weight: 500; margin-bottom: 1.5rem; }
+        .app-logo {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            object-fit: contain;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        .mode-accessible .app-logo {
+            height: auto;
+        }
+        
+        /* Add spacing after logo */
+        .toggle-section:first-of-type {
+            margin-top: 1.5rem;
+        }
+        
+        /* Add horizontal padding to content */
+        main#main-content {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-bottom: 2rem;
+        }
+        .app-title { font-weight: 800; margin: 0.5rem 0; font-size: 1.25rem; }
+        
+        /* Screen reader only - invisible but readable by assistive tech */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Visual label for sighted users */
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 1.5rem 1rem 0.75rem;
+        }
+        
+        /* Service Promo Image */
+        .service-promo-image {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            object-fit: contain;
+            display: block;
+            margin: 0.5rem 0 1rem 0;
+            padding: 0;
+        }
+        
+        .mode-accessible .service-promo-image {
+            height: auto;
+            margin: 0.75rem 0 1.5rem 0;
+        }
+        
+        [dir='rtl'] .section-label {
+            text-align: right;
+        }
+        
+        [dir='ltr'] .section-label {
+            text-align: left;
+        }
+        
+        .mode-accessible .section-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 2rem 1rem 1rem;
+        }
 
 
         /* A & B. Toggle Group Styling */
@@ -137,22 +239,29 @@
             gap: 1rem;
             margin-bottom: 2rem;
             border-bottom: 2px solid #E0E0E0;
-            padding-bottom: 1.5rem;
+            padding: 0 1rem 1.5rem 1rem;
+            max-width: 100%;
         }
 
         .toggle-row {
+            width: 100%;
+            max-width: 100%;
             display: flex;
             gap: 0.5rem;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 0;
         }
 
         .toggle-btn {
             flex: 1;
-            max-width: 180px;
+            min-width: 0;
+            max-width: 48%;
             border-radius: 9999px; 
             font-weight: 600;
+            font-size: 0.875rem;
             transition: all 0.2s;
             border: 2px solid var(--color-text);
+            padding: 0.75rem 0.5rem;
         }
 
         /* Standard Toggle Colors */
@@ -164,7 +273,7 @@
         .toggle-lang.inactive {
             background-color: white;
             color: var(--color-urdu-active);
-            border-color: var(--color-urdu-active);
+            border-color: #d0d0d0;
         }
 
         .toggle-mode.active {
@@ -175,14 +284,19 @@
         .toggle-mode.inactive {
             background-color: white;
             color: var(--color-accessible-active);
-            border-color: var(--color-accessible-active);
+            border-color: #d0d0d0;
         }
 
         /* III. Service Selection Cards */
         .service-cards-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.5rem;
+            max-width: 100%;
+            padding: 0;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
         }
 
         .card {
@@ -198,6 +312,11 @@
             text-decoration: none; 
             color: var(--color-text);
             text-align: center;
+            padding: 0.75rem 0.5rem;
+            min-width: 0;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .card:hover {
@@ -206,31 +325,87 @@
 
         .icon-container {
             margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-width: 0;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            line-height: 1.2;
+            max-width: 100%;
+            width: 100%;
+            padding: 0 0.25rem;
         }
 
         .card-delivery .card-icon { color: var(--color-delivery); }
         .card-ride .card-icon { color: var(--color-ride); }
         .card-shopping .card-icon { color: var(--color-shopping); }
 
-        
+        /* Responsive Design for Service Cards */
+        @media (max-width: 400px) {
+            .service-cards-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+            .card-icon {
+                font-size: 3rem;
+            }
+            .card-label {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 401px) and (max-width: 480px) {
+            .service-cards-container {
+                gap: 0.4rem;
+            }
+            .card {
+                padding: 0.75rem 0.4rem;
+            }
+            .card-icon {
+                font-size: 2.25rem;
+            }
+            .card-label {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (min-width: 481px) {
+            .card-label {
+                font-size: 0.95rem;
+            }
+        }
 
     </style>
-
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "uijabwi5g6");
-</script>
-    
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "uj06d06rak");
+    </script>
 </head>
 <body>
     <div class="app-container" id="app-container">
 
         <header class="app-header">
-            <h1 class="app-title" id="app-title">آسان سروس</h1>
-            <p class="app-subtitle" id="app-subtitle">اپنی سروس کا انتخاب کریں۔</p>
+            <img src="/logoUrdu.jpeg" alt="Bykea" class="app-logo" id="app-logo">
 
             <div class="toggle-section lang-selector">
                 <div class="toggle-row">
@@ -248,7 +423,9 @@
         </header>
 
         <main id="main-content">
-            <p class="app-subtitle" id="service-prompt">خدمت کا انتخاب کریں</p>
+            <h2 class="visually-hidden" id="service-heading">Select your service</h2>
+            <p class="section-label" id="service-prompt" aria-hidden="true">SERVICES</p>
+            <img src="/image.png" alt="Bykea Services" class="service-promo-image" id="service-promo-image">
             <div class="service-cards-container" id="service-cards">
                 
                 <a href="delivery.html" class="card card-delivery" data-service="delivery" 
@@ -276,9 +453,7 @@
     <script>
         // Configuration object for all localized text
         const TEXTS = {
-            title: { ur: "آسان سروس", en: "Asaan Service" },
-            subtitle: { ur: "اپنی سروس کا انتخاب کریں۔", en: "Select your service." },
-            servicePrompt: { ur: "خدمت کا انتخاب کریں", en: "Select a service" },
+            serviceHeading: { ur: "اپنی سروس کا انتخاب کریں", en: "Select your service" },
             langUr: { ur: "اردو", en: "Urdu" },
             langEn: { ur: "انگریزی", en: "English" },
             modeAccessible: { ur: "بڑا ٹیکسٹ", en: "Large Text" },
@@ -293,8 +468,8 @@
 
         const ELEMENTS = {
             appContainer: document.getElementById('app-container'),
-            appTitle: document.getElementById('app-title'),
-            appSubtitle: document.getElementById('app-subtitle'),
+            appLogo: document.getElementById('app-logo'),
+            serviceHeading: document.getElementById('service-heading'),
             servicePrompt: document.getElementById('service-prompt'),
             html: document.documentElement,
             langUrBtn: document.getElementById('lang-ur'),
@@ -305,7 +480,7 @@
 
         // --- State Management: Check localStorage for persistence (Crucial for MPA) ---
         let currentLang = localStorage.getItem('appLang') || 'ur'; // Default: Urdu
-        let currentMode = localStorage.getItem('appMode') || 'accessible'; // Default: Accessible
+        let currentMode = localStorage.getItem('appMode') || 'standard'; // Default: Standard (white background)
         
         // TTS Initialization
         const synth = window.speechSynthesis;
@@ -425,10 +600,11 @@
             // 2. Update Global Mode Class
             ELEMENTS.appContainer.className = `app-container mode-${currentMode}`;
 
-            // 3. Update Header Texts
-            ELEMENTS.appTitle.textContent = TEXTS.title[currentLang];
-            ELEMENTS.appSubtitle.textContent = TEXTS.subtitle[currentLang];
-            ELEMENTS.servicePrompt.textContent = TEXTS.servicePrompt[currentLang];
+            // 3. Update Header Texts and Logo
+            ELEMENTS.appLogo.src = currentLang === 'ur' ? '/logoUrdu.jpeg' : '/logo.png';
+            ELEMENTS.appLogo.alt = "Bykea";
+            if (ELEMENTS.serviceHeading) ELEMENTS.serviceHeading.textContent = TEXTS.serviceHeading[currentLang];
+            // Service prompt shows "SERVICES" in uppercase (not translated, visual only)
             
             // 4. Update Toggles
             ELEMENTS.langUrBtn.textContent = TEXTS.langUr[currentLang];
@@ -461,7 +637,7 @@
             // Initial Voice Announcement (delayed for stability)
             if (currentMode === 'accessible') {
                 setTimeout(() => {
-                    speakText(TEXTS.title[currentLang] + ". " + TEXTS.servicePrompt[currentLang]);
+                    speakText("Bykea. " + TEXTS.serviceHeading[currentLang]);
                 }, 500);
             }
 
@@ -492,7 +668,7 @@
                          updateUI();
                          // Speak the new mode name *after* the update to get the new voice
                          if (currentMode === 'accessible') {
-                            speakText(spokenText + ". " + TEXTS.title[currentLang] + ". " + TEXTS.servicePrompt[currentLang]);
+                            speakText(spokenText + ". Bykea. " + TEXTS.serviceHeading[currentLang]);
                          } else {
                             synth.cancel(); // Stop any pending speech if switching to standard
                          }
